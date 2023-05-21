@@ -14,12 +14,20 @@ namespace FilmDB401.Controllers
 
         public IActionResult Index()
         {
-            //var film = new FilmModel();
-            //film.Title = "Gladiator2";
-            //film.Year = 2006;
-            //_filmManager.AddFilm(film);
-            _filmManager.RemoveFilm(3);
             return View();
+        }
+
+        [HttpGet]
+        public IActionResult Add()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult Add(FilmModel film)
+        {
+            _filmManager.AddFilm(film);
+            return RedirectToAction("Index");
         }
     }
 }

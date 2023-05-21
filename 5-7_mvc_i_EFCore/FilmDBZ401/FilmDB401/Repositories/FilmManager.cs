@@ -50,19 +50,26 @@ namespace FilmDB401.Repositories
             return this;
         }
 
-        public FilmManager ChangeTitle(int id, string newTitle)
+        public void ChangeTitle(int id, string newTitle)
         {
-            return this;
+            if (String.IsNullOrEmpty(newTitle))
+            {
+                newTitle = "Brak tytułu";
+            }
+            var film = GetFilm(id);
+            film.Title = newTitle;
+            _context.Films.Update(film);
+            _context.SaveChanges();
         }
 
-        public FilmManager GetFilm(int id)
+        public FilmModel GetFilm(int id)
         {
-            return null;
+            return _context.Films.SingleOrDefault(x => x.ID == id);
         }
 
         public List<FilmModel> GetFilms()
         {
-            return null;
+            return _context.Films.ToList();
         }
     }
 }
